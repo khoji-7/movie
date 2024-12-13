@@ -5,15 +5,33 @@ import Footer from './components/Footer';
 import MobileNavigation from './components/MobileNavigation';
 import { useEffect } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setBannerData, setImageUrl } from './store/movieoSlice';
 
 function App() {
+
+  const dispatch = useDispatch()
 
   const fetchTrendingData = async() =>{
 
     try{
       const response = await axios.get('/trending/all/week')
 
-      console.log("response",response)
+      dispatch(setBannerData(response.data.results))
+     
+
+    }
+    catch (error){
+      console.log("error",error)
+    }
+  }
+
+  const fetchConfiguration = async() =>{
+    try{
+      const response = await axios.get('/configuration')
+
+      dispatch(setImageUrl(response.data.images.secure_base_url + "original"))
+
 
     }
     catch (error){
@@ -23,6 +41,7 @@ function App() {
 
   useEffect (()=>{
     fetchTrendingData()
+    fetchConfiguration()
   },[])
 
 
@@ -30,7 +49,7 @@ function App() {
   return (
     <main className='pb-14 lg:pb-0'>
       <Header/>
-      <div className='pt-16'>
+      <div className=''>
       <Outlet/>
       </div>
       <Footer/>
