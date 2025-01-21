@@ -23,7 +23,7 @@ const HorizontalScrollCard = ({data = [], heading}) => {
                         return <Card key={data.id} data={data} index={index + 1} trending={true} />;
                     })}
                 </div>
-                <div className="absolute top-0 flex w-full h-full justify-between items-center ">
+                <div className="absolute top-0 hidden lg:flex w-full h-full justify-between items-center ">
                     <button onClick={handlePrew} className="bg-white p-1 rounded-full text-black z-20 -ml-2">
                         <FaAngleLeft/>
                     </button>

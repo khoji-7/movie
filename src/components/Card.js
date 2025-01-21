@@ -2,12 +2,16 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {setImageUrl} from "../store/movieoSlice";
 import moment from "moment";
+import {Link} from "react-router-dom";
 
-const Card = ({data, trending, index}) => {
+
+const Card = ({data, trending, index,media_type}) => {
     const imageUrl = useSelector((state) => state.movieoData.imageUrl);
 
+    const mediaType = data.media_type ?? media_type
+   
     return (
-        <div className="w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden rounded relative">
+        <Link to={"/"+mediaType+"/"+data.id} className="w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden block rounded relative hover:scale-110 transition-all">
             <img src={imageUrl + data?.poster_path} alt="" />
             <div className="absolute top-5">
                 {trending && (
@@ -16,7 +20,7 @@ const Card = ({data, trending, index}) => {
                     </div>
                 )}
             </div>
-            <div className=" absolute bottom-0 w-full backdrop-blur-3xl bg-black/50 p-2 h-14">
+            <div className=" absolute bottom-0 w-full backdrop-blur-3xl bg-black/50 p-2 h-14 ">
                 <h2 className="text-ellipsis line-clamp-1 text-lg font-semibold">{data?.title || data?.name}</h2>
                 <div className="text-sm text-neutral-400 flex justify-between items-center">
                   <p >
@@ -27,7 +31,7 @@ const Card = ({data, trending, index}) => {
                   </p>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
